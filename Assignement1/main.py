@@ -43,17 +43,40 @@ class SandwichMachine:
 
     def check_resources(self, ingredients):
         """Returns True when order can be made, False if ingredients are insufficient."""
+        self.ingredients = ingredients
 
+        for item, needed_amount in recipes.items(): # this for loop goes over the recipes dictionary
+             if needed_amount < self.machine_resources:
+                print(f("Not enough "{ingredient}" to make sandwich"))
+                return False
+             elif self.machine_resources < needed_amount:
+                print(f("Not enough "{ingredient}" to make sandwich"))
+                return False
+        return True
+                
     def process_coins(self):
         """Returns the total calculated from coins inserted.
            Hint: include input() function here, e.g. input("how many quarters?: ")"""
+           dollar = int(input("How many dollars: ")) * 1
+           half_dollar = int(input("How many half dollars: ")) *.5
+           quarter = int(input("How many quarters: ")) *.25
+           nickel = int(input("How many nickels: ")) * .05
+           self.total_amount = dollar + half_dollar + quarter + nickel
+           return total_amount
+
+
+
 
     def transaction_result(self, coins, cost):
         """Return True when the payment is accepted, or False if money is insufficient.
            Hint: use the output of process_coins() function for cost input"""
+            total = self.process_coins #creating a total variable 
+
 
     def make_sandwich(self, sandwich_size, order_ingredients):
         """Deduct the required ingredients from the resources.
            Hint: no output"""
 
 ### Make an instance of SandwichMachine class and write the rest of the codes ###
+
+SandwichMachine(resources)
