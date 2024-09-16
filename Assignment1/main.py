@@ -43,16 +43,12 @@ class SandwichMachine:
 
     def check_resources(self, ingredients):
         """Returns True when order can be made, False if ingredients are insufficient."""
-        self.ingredients = ingredients
 
-        for item, needed_amount in ingredients.items(): # this for loop goes over the recipes dictionary
-             if needed_amount < self.machine_resources:
-                print(f"Not enough {item} to make sandwich")
+        for ingredient in ingredients: # this for loop goes over the recipes dictionary
+             if ingredient[ingredients] > self.machine_resources[ingredient]:
+                print(f"Not enough {ingredient} to make sandwich")
                 return False
-             elif self.machine_resources < needed_amount:
-                print(f"Not enough {item} to make sandwich")
-                return False
-        return True
+        return True 
                 
     def process_coins(self):
         """Returns the total calculated from coins inserted.
@@ -68,17 +64,14 @@ class SandwichMachine:
 
     def transaction_result(self, coins, cost):
         """Return True when the payment is accepted, or False if money is insufficient.
-           Hint: use the output of process_coins() function for cost input"""
-        coins = self.process_coins() #reassiging cost to the amount of money given 
-        for size, items in recipes.items():  # iterating over the recipes and geting the cost of each sandwich
-            cost = items['cost']
-            if coins >= cost:
-                 remainder = float(coins - cost)
-                 print(f"here is ${remainder} in change ")
-                 return True
-            else:
-                print("Sorry that's not enough money. Money Refunded")
-                return False
+           Hint: use the output of process_coins() function for cost input""" 
+        if coins >= cost:
+            remainder = float(coins - cost)
+            print(f"here is ${remainder:.2f} in change ")
+            return True
+        else:
+            print("Sorry that's not enough money. Money Refunded")
+            return False
 
 
     def make_sandwich(self, sandwich_size, order_ingredients):
@@ -87,8 +80,9 @@ class SandwichMachine:
         size = sandwich_size.lower() #lowering the user input
         sizes = ['small' , 'medium' ,'large'] # creating a list of the differnt size 
         if size in sizes: # checing if user input size is contained in the sizes list
-            for ingrident, amount in order_ingredients.items():
-                self.machine_resources[ingrident] -= amount
+            for ingridient, amount in order_ingredients.items():
+                if self.machine_resources.get(ingridient) >= amount:
+                    self.machine_resources[ingridient] -= amount
         else:
             print("That is not a valid size")
 
@@ -96,10 +90,13 @@ class SandwichMachine:
 
 ### Make an instance of SandwichMachine class and write the rest of the codes ###
 make_sandwiches = SandwichMachine(resources)
-
 sandwich_sizes = ['small' , 'medium' ,'large']
-while(resources):
-   response = input("What would you like? (small/ medium/ large/ off/ report)").lower()
+
+while make_sandwiches.check_resources()
+if sandwich_sizes in recipes:
+    response = input("What would you like? (small/ medium/ large/ off/ report)").lower()
+    
+
    if response in sandwich_sizes:
        make_sandwiches.make_sandwich(response,make_sandwiches.check_resources)
 
