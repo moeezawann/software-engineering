@@ -45,7 +45,7 @@ class SandwichMachine:
         """Returns True when order can be made, False if ingredients are insufficient."""
 
         for ingredient in ingredients: # this for loop goes over the recipes dictionary
-             if ingredient[ingredients] > self.machine_resources[ingredient]:
+             if ingredients[ingredient] > self.machine_resources[ingredient]:
                 print(f"Not enough {ingredient} to make sandwich")
                 return False
         return True 
@@ -77,28 +77,49 @@ class SandwichMachine:
     def make_sandwich(self, sandwich_size, order_ingredients):
         """Deduct the required ingredients from the resources.
            Hint: no output"""
-        size = sandwich_size.lower() #lowering the user input
-        sizes = ['small' , 'medium' ,'large'] # creating a list of the differnt size 
-        if size in sizes: # checing if user input size is contained in the sizes list
-            for ingridient, amount in order_ingredients.items():
-                if self.machine_resources.get(ingridient) >= amount:
-                    self.machine_resources[ingridient] -= amount
-        else:
-            print("That is not a valid size")
+        for items in order_ingredients: 
+            self.machine_resources[items] -= order_ingredients[items]
 
+        print(f"{sandwich_size} sandwich is ready. Bon appetit!")
+
+    #had to make the report method as doing it inside a while loop would not be optimal/reusable
+    def ingrident_report(self):
+        for ingridient, amount in self.machine_resources.items():
+            #googled/stack overflowed how to capitlize the first word 
+            print(f"{ingridient.capitalize()}: {amount} slice(s)")
+        
+    
             
 
 ### Make an instance of SandwichMachine class and write the rest of the codes ###
 make_sandwiches = SandwichMachine(resources)
-sandwich_sizes = ['small' , 'medium' ,'large']
 
-while make_sandwiches.check_resources()
-if sandwich_sizes in recipes:
-    response = input("What would you like? (small/ medium/ large/ off/ report)").lower()
+
+while True: 
+    response = input("What would you like? (small/ medium/ large/ off/ report): ").lower()
+
+    if response == 'off':
+        break
+    elif response in recipes:
+        sandwich = recipes[response]
+        needed_items = sandwich['ingredients']
+        cost = sandwich['cost']
+        if make_sandwiches.check_resources(needed_items):
+            given_money = make_sandwiches.process_coins()
+            if make_sandwiches.transaction_result(given_money, cost):
+                make_sandwiches.make_sandwich(response, needed_items)
+    elif response == 'report':
+        make_sandwiches.ingrident_report()
+    else:
+        print("that is not a valid size")
+
+
+     
+     
     
 
-   if response in sandwich_sizes:
-       make_sandwiches.make_sandwich(response,make_sandwiches.check_resources)
 
 
+    
+  
     
