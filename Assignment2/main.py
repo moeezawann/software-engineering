@@ -16,7 +16,6 @@ def main():
     ###  write the rest of the codes ###
     while True: 
         response = input("What would you like? (small/ medium/ large/ off/ report): ").strip().lower()
-
         if response == 'off':
             print("Thanks for using!")
             break
