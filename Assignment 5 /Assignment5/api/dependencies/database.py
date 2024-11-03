@@ -1,12 +1,14 @@
 from sqlalchemy import create_engine
-# from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, declarative_base
 from .config import conf
 from urllib.parse import quote_plus
+# importing os so we can use it in our password section for the database url
+import os
 
 
 
-SQLALCHEMY_DATABASE_URL = f"mysql+pymysql://{conf.user}:{quote_plus(conf.password)}@{conf.host}:{conf.port}/{conf.database}?charset=utf8mb4"
+SQLALCHEMY_DATABASE_URL = f"mysql+pymysql://{conf.user}:{quote_plus(os.getenv('DB_PASSWORD',''))}@{conf.host}:{conf.port}/{conf.database}?charset=utf8mb4"
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL
 )
